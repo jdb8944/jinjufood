@@ -58,7 +58,8 @@ nav a.on::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;heig
 .wall .card .ph{border-radius:6px}
 .wall .card:nth-child(3n+2){transform:translateY(28px)}
 .wall .card .ph img{transition:opacity .6s ease, transform .4s ease}
-.wall .card .ph img.out{opacity:0}
+.wall .card .ph img.out,.cat .ph img.out{opacity:0}
+.cat .ph img{transition:opacity .6s ease}
 @media (max-width:900px){.wall .card:nth-child(n+4){display:none}.wall .card:nth-child(3n+2){transform:translateY(16px)}}
 .eyebrow{font-size:13px;color:var(--ink2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px}
 .eyebrow i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--or)}
@@ -593,6 +594,25 @@ const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { c
     img.classList.add('out');
     setTimeout(() => { img.src = 'img/prod/' + it.img[0]; img.alt = label(it); c.dataset.id = it.id; img.onload = () => img.classList.remove('out'); }, 600);
   }, 1800);
+})();
+
+
+// 제품군 카드: 각 분류 안에서 사진이 무작위로 바뀜
+(function(){
+  const cards = [...document.querySelectorAll('#cats .cat')];
+  const pools = cards.map(c => shuffle(ITEMS.filter(i => i.cat === c.dataset.cat)));
+  const pos = pools.map(() => 0);
+  cards.forEach((c, i) => { c.querySelector('img').src = 'img/prod/' + pools[i][0].img[0]; });
+  let k = 0;
+  setInterval(() => {
+    if (!$('#cats').offsetParent) return;
+    const i = k++ % cards.length, pool = pools[i];
+    if (pool.length < 2) return;
+    pos[i] = (pos[i] + 1) % pool.length;
+    const img = cards[i].querySelector('img');
+    img.classList.add('out');
+    setTimeout(() => { img.src = 'img/prod/' + pool[pos[i]].img[0]; img.onload = () => img.classList.remove('out'); }, 600);
+  }, 1400);
 })();
 
 // routing
