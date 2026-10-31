@@ -87,7 +87,8 @@ section.block{padding:96px 0}
 .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .cat{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 18px 20px;transition:.2s;text-align:left}
 .cat:hover{border-color:var(--ink);transform:translateY(-2px)}
-.cat .ph{aspect-ratio:1;margin-bottom:14px;overflow:hidden}
+.cat .ph{aspect-ratio:1;margin-top:16px;overflow:hidden}
+.cat b{font-size:18px}
 .cat .ph img{width:100%;height:100%;object-fit:contain}
 .cat b{display:block;font-size:17px;font-weight:500}
 .cat span{font-size:13px;color:var(--ink2)}
@@ -469,7 +470,7 @@ function card(it){
 $('#mCount').textContent = ITEMS.length;
 $('#cats').innerHTML = CATS.map(c => {
   const n = ITEMS.filter(i => i.cat === c).length, cov = byId[CAT_COVER[c]] || ITEMS.find(i => i.cat === c);
-  return `<button class="cat" data-cat="${c}"><div class="ph"><img src="img/prod/${cov.img[0]}" alt="" loading="lazy"></div><b>${c}</b><span class="en">${CAT_EN[c]} · ${n}</span></button>`;
+  return `<button class="cat" data-cat="${c}"><b>${c}</b><span class="en">${CAT_EN[c]} · ${n}</span><div class="ph"><img src="img/prod/${cov.img[0]}" alt="" loading="lazy"></div></button>`;
 }).join('');
 $('#featured').innerHTML = FEATURED.map(id => byId[id]).filter(Boolean).map(card).join('');
 
