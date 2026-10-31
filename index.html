@@ -30,7 +30,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hero-img{position:relative}
 .hero-img img,.about-hero img,.band .ph img{transition:opacity 1.2s ease}
 .fade-stack{position:relative}
-.fade-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
+.fade-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
 .fade-stack img.on{opacity:1}
 /* header */
 header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
@@ -563,7 +563,7 @@ const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { c
     setTimeout(() => setInterval(() => {
       if (!box.offsetParent) return;
       imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on');
-    }, 5500), k * 1200);
+    }, 3500), k * 900);
   });
 })();
 
