@@ -52,7 +52,7 @@ nav a.on::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;heig
 
 /* hero */
 .hero{padding:64px 0 0}
-.hero-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:end}
+.hero-grid{display:block;padding:40px 0 8px}
 .eyebrow{font-size:13px;color:var(--ink2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px}
 .eyebrow i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--or)}
 .eyebrow i+i{background:var(--bl);margin-left:-6px}
@@ -263,7 +263,6 @@ footer .copy{margin-top:20px;font-family:"Jost"}
             <a class="btn" href="#contact">입점·거래 문의</a>
           </div>
         </div>
-        <div class="hero-img fade-stack" data-rotate="hero"></div>
       </div>
       <div class="hero-meta">
         <div><b>1986</b><span>창업</span></div>
@@ -554,7 +553,7 @@ const FACTORY = ['g01','g02','g03','g04','g05','g07','g08','g09','g10'];
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 (function(){
   const order = shuffle(FACTORY);
-  const slots = {hero: order.slice(0,3), band: order.slice(3,6), about: order.slice(6,9)};
+  const slots = {band: order.slice(0,4), about: order.slice(4,9)};
   document.querySelectorAll('[data-rotate]').forEach((box, k) => {
     const list = slots[box.dataset.rotate] || order;
     box.innerHTML = list.map((g, i) => `<img src="img/f/${g}.jpg" alt="진주식품 공장" ${i ? 'loading="lazy"' : ''} class="${i ? '' : 'on'}">`).join('');
