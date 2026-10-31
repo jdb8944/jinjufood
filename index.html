@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>진주식품 JinJu Food</title>
+<meta name="description" content="1986년부터 오징어, 쥐포, 어포, 육포, 견과류 안주를 만드는 진주식품입니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2f3537; --ink2:#5d6567; --line:#e6e4df; --bg:#fbfaf7; --paper:#ffffff;
+  --or:#e8531f; --bl:#2f95d4; --soft:#f3f1ec;
+  --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans KR",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+p,li,dd{text-wrap:pretty}
+h1,h2,h3{text-wrap:balance}
+.bd{display:inline}
+@media (max-width:900px){.bd{display:none}}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.en{font-family:"Jost",sans-serif;letter-spacing:.02em}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.scrolled{border-color:var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo img{height:34px;width:auto}
+nav{display:flex;gap:36px;font-size:15px}
+nav a{position:relative;padding:6px 0;color:var(--ink2);transition:color .15s}
+nav a:hover,nav a.on{color:var(--ink)}
+nav a.on::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;height:5px;border-radius:50%;background:var(--or);transform:translateX(-50%)}
+.menu-btn{display:none;width:40px;height:40px;align-items:center;justify-content:center}
+.menu-btn span{display:block;width:20px;height:1.5px;background:var(--ink);position:relative}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:20px;height:1.5px;background:var(--ink)}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+
+.view{display:none}
+.view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* hero */
+.hero{padding:64px 0 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:56px;align-items:end}
+.eyebrow{font-size:13px;color:var(--ink2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.eyebrow i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--or)}
+.eyebrow i+i{background:var(--bl);margin-left:-6px}
+h1{font-size:44px;line-height:1.35;font-weight:500;letter-spacing:-.02em}
+.hero p.lead{margin-top:24px;color:var(--ink2);font-size:16px;line-height:1.9}
+.hero .cta{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;font-size:15px;border:1px solid var(--ink);transition:.15s}
+.btn.dark{background:var(--ink);color:#fff}
+.btn.dark:hover{background:#000}
+.btn:not(.dark):hover{background:var(--ink);color:#fff}
+.hero-img{border-radius:6px;overflow:hidden;aspect-ratio:4/3;background:var(--soft)}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hero-meta div b{display:block;font-family:"Jost";font-weight:400;font-size:30px;line-height:1.2}
+.hero-meta div span{font-size:13px;color:var(--ink2)}
+
+section.block{padding:96px 0}
+.sec-hd{display:flex;align-items:end;justify-content:space-between;margin-bottom:36px;gap:20px}
+.sec-hd h2{font-size:28px;font-weight:500;letter-spacing:-.01em}
+.sec-hd .en{display:block;font-size:13px;color:var(--ink2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.more{font-size:14px;color:var(--ink2);border-bottom:1px solid currentColor;padding-bottom:2px}
+.more:hover{color:var(--ink)}
+
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.cat{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 18px 20px;transition:.2s;text-align:left}
+.cat:hover{border-color:var(--ink);transform:translateY(-2px)}
+.cat .ph{aspect-ratio:1;margin-bottom:14px;overflow:hidden}
+.cat .ph img{width:100%;height:100%;object-fit:contain}
+.cat b{display:block;font-size:17px;font-weight:500}
+.cat span{font-size:13px;color:var(--ink2)}
+
+/* product grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 18px}
+.card{text-align:left;display:block;width:100%}
+.card .ph{background:var(--paper);border:1px solid var(--line);border-radius:6px;aspect-ratio:1;overflow:hidden;transition:border-color .2s}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.card:hover .ph{border-color:#cfccc5}
+.card:hover .ph img{transform:scale(1.04)}
+.card .nm{margin-top:12px;font-size:15px;font-weight:500;line-height:1.45}
+.card .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+
+.band{background:var(--ink);color:#fff}
+.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding-top:96px;padding-bottom:96px}
+.band h2{font-size:30px;font-weight:500;line-height:1.45}
+.band p{color:#c9cfd0;margin-top:20px;line-height:1.9}
+.band .ph{border-radius:6px;overflow:hidden;aspect-ratio:3/2}
+.band .ph img{width:100%;height:100%;object-fit:cover}
+.band .btn{border-color:#fff;color:#fff;margin-top:30px}
+.band .btn:hover{background:#fff;color:var(--ink)}
+
+/* products page */
+.page-hd{padding:64px 0 32px}
+.page-hd h1{font-size:36px}
+.page-hd p{color:var(--ink2);margin-top:12px}
+.toolbar{position:sticky;top:76px;z-index:10;background:var(--bg);padding:14px 0;border-bottom:1px solid var(--line);margin-bottom:34px}
+.toolbar .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{height:38px;padding:0 18px;border-radius:999px;border:1px solid var(--line);font-size:14px;color:var(--ink2);background:var(--paper)}
+.tab:hover{color:var(--ink);border-color:#cfccc5}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab small{font-family:"Jost";margin-left:5px;opacity:.6}
+.search{position:relative}
+.search input{height:38px;width:220px;border:1px solid var(--line);border-radius:999px;padding:0 16px 0 38px;font:inherit;font-size:14px;background:var(--paper);outline:none}
+.search input:focus{border-color:var(--ink)}
+.search svg{position:absolute;left:14px;top:11px;width:16px;height:16px;stroke:var(--ink2)}
+.empty{padding:80px 0;text-align:center;color:var(--ink2);display:none}
+.catsec{margin-bottom:64px}
+.catsec h3{font-size:20px;font-weight:500;margin-bottom:20px;display:flex;align-items:baseline;gap:10px}
+.catsec h3 small{font-family:"Jost";font-size:14px;color:var(--ink2);font-weight:400}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(30,33,34,.55);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.on{display:flex;animation:fade .2s}
+.sheet{background:var(--paper);border-radius:10px;max-width:920px;width:100%;max-height:calc(100vh - 48px);overflow:auto;display:grid;grid-template-columns:1.05fr 1fr;position:relative}
+.sheet .gal{background:#fff;padding:26px;border-right:1px solid var(--line)}
+.sheet .main{aspect-ratio:1}
+.sheet .main img{width:100%;height:100%;object-fit:contain}
+.thumbs{display:flex;gap:8px;margin-top:14px}
+.thumbs button{width:62px;height:62px;border:1px solid var(--line);border-radius:4px;overflow:hidden;opacity:.6}
+.thumbs button.on{border-color:var(--ink);opacity:1}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.info{padding:34px 32px}
+.info .c{font-size:13px;color:var(--or);letter-spacing:.06em}
+.info h2{font-size:26px;font-weight:500;margin:6px 0 24px;line-height:1.4}
+.info dl{display:grid;grid-template-columns:96px 1fr;border-top:1px solid var(--line)}
+.info dt,.info dd{padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+.info dt{color:var(--ink2)}
+.info .note{margin-top:20px;font-size:13px;color:var(--ink2)}
+.close{position:absolute;right:14px;top:12px;width:38px;height:38px;border-radius:50%;font-size:22px;line-height:1;color:var(--ink2);background:rgba(255,255,255,.9)}
+.close:hover{color:var(--ink)}
+.nav-arrows{display:flex;gap:8px;margin-top:26px}
+.nav-arrows button{height:38px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink2)}
+.nav-arrows button:hover{border-color:var(--ink);color:var(--ink)}
+
+/* about */
+.about-hero{position:relative;height:440px;overflow:hidden}
+.about-hero img{width:100%;height:100%;object-fit:cover}
+.about-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.55))}
+.about-hero .wrap{position:absolute;left:0;right:0;bottom:44px;z-index:2;color:#fff}
+.about-hero h1{font-size:40px}
+.about-hero .en{font-size:15px;opacity:.85;margin-top:6px;display:block}
+.mission{display:grid;grid-template-columns:260px 1fr;gap:56px}
+.mission h2{font-size:15px;font-weight:500;color:var(--ink2);letter-spacing:.1em}
+.mission .body p{font-size:19px;line-height:2;margin-bottom:24px}
+.ids{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.id{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:30px 28px}
+.id .n{font-family:"Jost";font-size:14px;color:var(--or)}
+.id h3{font-weight:500;font-size:22px;letter-spacing:-.01em;margin:8px 0 14px}
+.id p{font-size:15px;color:var(--ink2);line-height:1.9}
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:12px}
+.gallery div{overflow:hidden;border-radius:6px;background:var(--soft)}
+.gallery div:first-child{grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.clist{border-top:1px solid var(--ink)}
+.clist div{display:grid;grid-template-columns:120px 1fr;padding:18px 0;border-bottom:1px solid var(--line);font-size:16px}
+.clist span{color:var(--ink2);font-size:14px;padding-top:2px}
+.clist a:hover{color:var(--or)}
+.notice{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:30px}
+.notice h3{font-size:17px;font-weight:500;margin-bottom:14px}
+.notice ul{list-style:none}
+.notice li{position:relative;padding-left:16px;font-size:15px;color:var(--ink2);margin-bottom:10px}
+.notice li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--bl)}
+.copybox{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.copybox button{height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;background:var(--bg)}
+.copybox button:hover{border-color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+footer{border-top:1px solid var(--line);margin-top:40px;padding:44px 0 56px;font-size:13px;color:var(--ink2)}
+footer .ft{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer img{height:26px;margin-bottom:16px;opacity:.9}
+footer p{line-height:1.9}
+footer .copy{margin-top:20px;font-family:"Jost"}
+
+@media (max-width:900px){
+  .hero-grid,.band .wrap,.contact-grid,.mission{grid-template-columns:1fr;gap:32px}
+  h1{font-size:32px}
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .ids{grid-template-columns:1fr}
+  .sheet{grid-template-columns:1fr}
+  .sheet .gal{border-right:0;border-bottom:1px solid var(--line)}
+  .gallery{grid-template-columns:1fr 1fr;grid-template-rows:200px 160px 160px}
+  .gallery div:first-child{grid-column:span 2;grid-row:auto}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .hd{height:64px}
+  .logo img{height:28px}
+  .menu-btn{display:flex}
+  nav{position:fixed;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;gap:0;padding:8px 20px 20px;border-bottom:1px solid var(--line);display:none}
+  nav.open{display:flex}
+  nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+  nav a.on::after{display:none}
+  .hero{padding-top:36px}
+  h1{font-size:28px}
+  .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
+  .hero-meta div b{font-size:24px}
+  section.block{padding:64px 0}
+  .cats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .cat{padding:10px 10px 12px}
+  .cat b{font-size:15px}
+  .cat span{font-size:11px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:18px 12px}
+  .toolbar{top:64px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;width:100%;scrollbar-width:none}
+  .tab{flex:none}
+  .search,.search input{width:100%}
+  .about-hero{height:320px}
+  .about-hero h1{font-size:30px}
+  .clist div{grid-template-columns:90px 1fr}
+  .info{padding:24px 22px}
+  .modal{padding:0;align-items:flex-end}
+  .sheet{border-radius:14px 14px 0 0;max-height:92vh}
+}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap hd">
+    <a class="logo" href="#home" aria-label="진주식품 홈"><img src="img/logo/logo-h.png" alt="JinJu Food 진주식품"></a>
+    <nav id="nav">
+      <a href="#products" data-v="products">제품</a>
+      <a href="#about" data-v="about">회사소개</a>
+      <a href="#contact" data-v="contact">문의</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴"><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<div class="view" id="v-home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow en"><i></i><i></i> Since 1986</div>
+          <h1>우리가 만든 안주로<br>사람들을 즐겁게.</h1>
+          <p class="lead">진주식품은 1986년부터 안주를 직접 만들어 왔습니다.<br class="bd">오징어, 쥐포, 어포, 육포, 견과류까지,<br class="bd">같은 원료라도 용량과 모양을 달리해 자리에 맞게 내놓습니다.</p>
+          <div class="cta">
+            <a class="btn dark" href="#products">제품 보기 <span class="en">→</span></a>
+            <a class="btn" href="#contact">입점·거래 문의</a>
+          </div>
+        </div>
+        <div class="hero-img"><img src="img/f/f1361.jpg" alt="진주식품 생산 라인"></div>
+      </div>
+      <div class="hero-meta">
+        <div><b>1986</b><span>창업</span></div>
+        <div><b id="mCount">50</b><span>판매 중인 제품</span></div>
+        <div><b>5</b><span>제품군</span></div>
+        <div><b>10+</b><span>매년 새로 개발하는 제품</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-hd">
+        <div><span class="en">Category</span><h2>제품군</h2></div>
+        <a class="more" href="#products">전체 제품</a>
+      </div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-hd">
+        <div><span class="en">Products</span><h2>진주식품의 안주</h2></div>
+        <a class="more" href="#products">더 보기</a>
+      </div>
+      <div class="grid" id="featured"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <span class="en" style="font-size:13px;letter-spacing:.14em;color:#9aa3a5">OUR FACTORY</span>
+        <h2 style="margin-top:10px">경남 진주의 공장에서<br>직접 굽고, 포장합니다.</h2>
+        <p>손질부터 굽기, 조미, 포장까지 한 공간에서 이어집니다.<br class="bd">오래 사랑받은 맛은 지키고,<br class="bd">달라지는 입맛에 맞춰 새 제품을 계속 만들어 갑니다.</p>
+        <a class="btn" href="#about">회사소개</a>
+      </div>
+      <div class="ph"><img src="img/f/f1362.jpg" alt="진주식품 생산 라인"></div>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCTS -->
+<div class="view" id="v-products">
+  <div class="wrap page-hd">
+    <span class="en" style="font-size:13px;letter-spacing:.14em;color:var(--ink2)">PRODUCTS</span>
+    <h1 style="margin-top:6px">제품</h1>
+    <p>제품을 누르면 앞·뒷면 사진과 정보를 볼 수 있습니다.</p>
+  </div>
+  <div class="toolbar">
+    <div class="wrap">
+      <div class="tabs" id="tabs"></div>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="제품명 검색"></label>
+    </div>
+  </div>
+  <div class="wrap" id="plist"></div>
+  <div class="wrap empty" id="empty">찾는 제품이 없습니다. 다른 이름으로 검색해 보세요.</div>
+</div>
+
+<!-- ABOUT -->
+<div class="view" id="v-about">
+  <div class="about-hero">
+    <img src="img/f/f1369.jpg" alt="진주식품 생산 공정">
+    <div class="wrap">
+      <h1>Make people happy<br>with our food</h1>
+      <span class="en">우리가 만든 식품으로 사람들을 즐겁게</span>
+    </div>
+  </div>
+  <section class="block">
+    <div class="wrap mission">
+      <h2 class="en">OUR MISSION</h2>
+      <div class="body">
+        <p>세상에는 이미 많은 먹거리가 있습니다.<br class="bd">먹는 일은 생존이기도 하지만,<br class="bd">이제는 저마다의 생활 방식이 되었습니다.</p>
+        <p>진주식품은 다양한 안주로 즐거운 시간을 함께합니다.<br class="bd">고객님이 없다면, 저희가 제품을 만드는 의미도 없습니다.</p>
+      </div>
+    </div>
+  </section>
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-hd"><div><span class="en">Food Identity</span><h2>진주식품이 안주를 만드는 방식</h2></div></div>
+      <div class="ids">
+        <div class="id"><div class="n">01</div><h3>원료마다 다르게</h3><p>원료마다 성격이 다릅니다. 제품마다 그에 맞게 만들고, 같은 원료라도 용량과 모양을 달리해 다양한 자리와 취향에 맞춥니다.</p></div>
+        <div class="id"><div class="n">02</div><h3>해마다 새롭게</h3><p>입맛은 시대에 따라 달라집니다. 진주식품은 해마다 10가지 이상의 새 제품을 개발하며 지금의 입맛을 따라갑니다.</p></div>
+        <div class="id"><div class="n">03</div><h3>오래도록 같게</h3><p>1986년부터 많은 제품이 나오고 사라졌습니다. 그 가운데 오래 사랑받은 제품들은 변함없는 맛으로 지켜 갑니다.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-hd"><div><span class="en">Factory</span><h2>생산 현장</h2></div></div>
+      <div class="gallery">
+        <div><img src="img/f/f1361.jpg" alt="생산 라인" loading="lazy"></div>
+        <div><img src="img/f/f1364.jpg" alt="굽기 설비" loading="lazy"></div>
+        <div><img src="img/f/f1356.jpg" alt="포장 설비" loading="lazy"></div>
+        <div><img src="img/f/f1369.jpg" alt="공장 내부" loading="lazy"></div>
+        <div><img src="img/f/f1362.jpg" alt="공장 내부" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="view" id="v-contact">
+  <div class="wrap page-hd">
+    <span class="en" style="font-size:13px;letter-spacing:.14em;color:var(--ink2)">CONTACT</span>
+    <h1 style="margin-top:6px">문의</h1>
+    <p>가맹점, 입점, 납품 문의는 아래 연락처로 부탁드립니다.</p>
+  </div>
+  <section class="block" style="padding-top:20px">
+    <div class="wrap contact-grid">
+      <div class="clist">
+        <div><span>대표</span>정다래</div>
+        <div><span>모바일</span><a href="tel:01035518944">010-3551-8944</a></div>
+        <div><span>전화</span><a href="tel:0557468947">055-746-8947</a></div>
+        <div><span>팩스</span>055-747-4030</div>
+        <div><span>이메일</span><a href="mailto:wjd8944@naver.com">wjd8944@naver.com</a></div>
+        <div><span>운영 시간</span>평일 09:00 – 17:00<br><small style="color:var(--ink2)">점심 12:30 – 13:30 · 주말·공휴일 휴무</small></div>
+        <div><span>주소</span><a href="https://map.naver.com/p/search/%EA%B2%BD%EB%82%A8%20%EC%A7%84%EC%A3%BC%EC%8B%9C%20%EB%8C%80%EC%8B%A0%EB%A1%9C196%EB%B2%88%EA%B8%B8%2012" target="_blank" rel="noopener">경남 진주시 대신로196번길 12 (상평동)</a></div>
+      </div>
+      <div class="notice">
+        <h3>문의 전에 확인해 주세요</h3>
+        <ul>
+          <li>전화나 이메일보다 모바일(문자)로 문의 주시면 가장 빠르게 답변드립니다.</li>
+          <li>답변까지 최대 3일이 걸릴 수 있습니다.</li>
+          <li>진주식품과 관련 없는 문의는 답변드리기 어렵습니다.</li>
+        </ul>
+        <div class="copybox">
+          <button data-copy="010-3551-8944">모바일 번호 복사</button>
+          <button data-copy="wjd8944@naver.com">이메일 복사</button>
+          <button data-copy="경남 진주시 대신로196번길 12">주소 복사</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <img src="img/logo/logo-h.png" alt="JinJu Food">
+        <p>상호 진주식품 · 대표 정다래 · 사업자등록번호 463-32-00202<br>
+        경남 진주시 대신로196번길 12 (상평동)<br>
+        고객센터 055-746-8947 / 010-3551-8944 · 팩스 055-747-4030<br>
+        평일 09:00 – 17:00 (점심 12:30 – 13:30)</p>
+      </div>
+      <div style="align-self:flex-end;text-align:right">
+        <nav style="display:flex;position:static;flex-direction:row;gap:20px;padding:0;border:0;background:none">
+          <a href="#products" style="border:0;padding:0;font-size:13px">제품</a>
+          <a href="#about" style="border:0;padding:0;font-size:13px">회사소개</a>
+          <a href="#contact" style="border:0;padding:0;font-size:13px">문의</a>
+        </nav>
+        <p class="copy">© JinJu Food. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <button class="close" id="mClose" aria-label="닫기">×</button>
+    <div class="gal">
+      <div class="main"><img id="mImg" alt=""></div>
+      <div class="thumbs" id="mThumbs"></div>
+    </div>
+    <div class="info">
+      <div class="c" id="mCat"></div>
+      <h2 id="mName"></h2>
+      <dl id="mDl"></dl>
+      <p class="note">원재료명 및 함량, 영양정보는 제품 뒷면 사진을 확인해 주세요.</p>
+      <div class="nav-arrows"><button id="mPrev">← 이전 제품</button><button id="mNext">다음 제품 →</button></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const ITEMS = [{"id":"p01","name":"구운 맛진미 오징어","cat":"오징어","w":null,"o":null,"img":["p01-1.jpg","p01-2.jpg"]},{"id":"p02","name":"구운 오징어","cat":"오징어","w":null,"o":null,"img":["p02-1.jpg","p02-2.jpg"]},{"id":"p03","name":"꽃바람 오징어","cat":"오징어","w":null,"o":null,"img":["p03-1.jpg","p03-2.jpg"]},{"id":"p04","name":"꽃바람 오징어","cat":"오징어","w":"150g","o":null,"img":["p04-1.jpg","p04-2.jpg"]},{"id":"p05","name":"꽃오징어","cat":"오징어","w":null,"o":null,"img":["p05-1.jpg","p05-2.jpg"]},{"id":"p06","name":"맥반석 구이맛 오징어","cat":"오징어","w":null,"o":null,"img":["p06-1.jpg","p06-2.jpg"]},{"id":"p07","name":"맥반석 구이맛 오징어","cat":"오징어","w":null,"o":"베트남산","img":["p07-1.jpg","p07-2.jpg"]},{"id":"p08","name":"맥반석 구이맛 오징어","cat":"오징어","w":"70g","o":null,"img":["p08-1.jpg","p08-2.jpg"]},{"id":"p09","name":"몸통 오징어","cat":"오징어","w":null,"o":null,"img":["p09-1.jpg","p09-2.jpg"]},{"id":"p10","name":"바베큐 오징어","cat":"오징어","w":null,"o":null,"img":["p10-1.jpg","p10-2.jpg"]},{"id":"p11","name":"바베큐 오징어","cat":"오징어","w":"50g","o":null,"img":["p11-1.jpg","p11-2.jpg"]},{"id":"p12","name":"버터 구이맛 오징어","cat":"오징어","w":null,"o":null,"img":["p12-1.jpg","p12-2.jpg"]},{"id":"p13","name":"버터 구이맛 오징어","cat":"오징어","w":null,"o":"베트남산","img":["p13-1.jpg","p13-2.jpg"]},{"id":"p14","name":"불고기맛 오징어","cat":"오징어","w":null,"o":"베트남산","img":["p14-1.jpg","p14-2.jpg"]},{"id":"p15","name":"세가지맛 오징어","cat":"오징어","w":null,"o":null,"img":["p15-1.jpg","p15-2.jpg"]},{"id":"p16","name":"오징어 긴다리","cat":"오징어","w":null,"o":null,"img":["p16-1.jpg","p16-2.jpg"]},{"id":"p17","name":"오징어 긴다리","cat":"오징어","w":"50g","o":null,"img":["p17-1.jpg","p17-2.jpg"]},{"id":"p18","name":"오징어 오다리","cat":"오징어","w":null,"o":null,"img":["p18-1.jpg","p18-2.jpg"]},{"id":"p19","name":"왕다리 오징어","cat":"오징어","w":null,"o":null,"img":["p19-1.jpg","p19-2.jpg"]},{"id":"p20","name":"한마리 오징어","cat":"오징어","w":null,"o":null,"img":["p20-1.jpg","p20-2.jpg"]},{"id":"p21","name":"한입 왕다리 오징어","cat":"오징어","w":null,"o":null,"img":["p21-1.jpg","p21-2.jpg"]},{"id":"p22","name":"황토구이 오징어","cat":"오징어","w":null,"o":null,"img":["p22-1.jpg","p22-2.jpg"]},{"id":"p23","name":"구운 쥐치포","cat":"쥐포","w":null,"o":null,"img":["p23-1.jpg","p23-2.jpg"]},{"id":"p24","name":"석쇠구이 쥐치맛포","cat":"쥐포","w":null,"o":null,"img":["p24-1.jpg","p24-2.jpg"]},{"id":"p25","name":"석쇠구이 한입 쥐치포","cat":"쥐포","w":null,"o":null,"img":["p25-1.jpg","p25-2.jpg"]},{"id":"p26","name":"옛날맛 쥐치포","cat":"쥐포","w":null,"o":null,"img":["p26-1.jpg","p26-2.jpg"]},{"id":"p27","name":"올리브구이 쥐치맛포","cat":"쥐포","w":null,"o":null,"img":["p27-1.jpg","p27-2.jpg"]},{"id":"p28","name":"올리브유 쥐치맛포","cat":"쥐포","w":null,"o":null,"img":["p28-1.jpg","p28-2.jpg"]},{"id":"p29","name":"조미 쥐치포","cat":"쥐포","w":null,"o":null,"img":["p29-1.jpg","p29-2.jpg"]},{"id":"p30","name":"쥐포 구이채","cat":"쥐포","w":null,"o":null,"img":["p30-1.jpg","p30-2.jpg"]},{"id":"p31","name":"허니 쥐치포","cat":"쥐포","w":null,"o":null,"img":["p31-1.jpg","p31-2.jpg"]},{"id":"p32","name":"물메기 구이포","cat":"어포","w":null,"o":null,"img":["p32-1.jpg","p32-2.jpg"]},{"id":"p33","name":"불고기맛 아귀구이포","cat":"어포","w":null,"o":null,"img":["p33-1.jpg","p33-2.jpg"]},{"id":"p34","name":"아귀 구이포","cat":"어포","w":null,"o":null,"img":["p34-1.jpg","p34-2.jpg"]},{"id":"p35","name":"아귀 구이포","cat":"어포","w":"45g","o":null,"img":["p35-1.jpg","p35-2.jpg"]},{"id":"p36","name":"조미 먹태구이포","cat":"어포","w":null,"o":null,"img":["p36-1.jpg","p36-2.jpg"]},{"id":"p37","name":"조미 먹태구이포","cat":"어포","w":"100g","o":null,"img":["p37-1.jpg","p37-2.jpg"]},{"id":"p38","name":"빼빼 육포","cat":"육포","w":null,"o":null,"img":["p38-1.jpg","p38-2.jpg"]},{"id":"p39","name":"쇠고기 육포","cat":"육포","w":null,"o":null,"img":["p39-1.jpg","p39-2.jpg"]},{"id":"p40","name":"쇠고기 육포 스틱","cat":"육포","w":null,"o":null,"img":["p40-1.jpg","p40-2.jpg","p40-3.jpg","p40-4.jpg"]},{"id":"p41","name":"슬림 육포","cat":"육포","w":null,"o":null,"img":["p41-1.jpg","p41-2.jpg"]},{"id":"p42","name":"일미 육포채","cat":"육포","w":null,"o":null,"img":["p42-1.jpg","p42-2.jpg","p42-3.jpg","p42-4.jpg"]},{"id":"p43","name":"프리미엄 육포","cat":"육포","w":null,"o":null,"img":["p43-1.jpg","p43-2.jpg"]},{"id":"p44","name":"한우 정통 쇠고기 육포","cat":"육포","w":null,"o":null,"img":["p44-1.jpg","p44-2.jpg"]},{"id":"p45","name":"한입 육포","cat":"육포","w":null,"o":null,"img":["p45-1.jpg","p45-2.jpg"]},{"id":"p46","name":"황우 쇠고기 육포","cat":"육포","w":null,"o":null,"img":["p46-1.jpg","p46-2.jpg"]},{"id":"p47","name":"가마솥 볶음땅콩","cat":"견과류","w":"120g","o":null,"img":["p47-1.jpg","p47-2.jpg"]},{"id":"p48","name":"가마솥 볶음땅콩","cat":"견과류","w":"50g","o":null,"img":["p48-1.jpg","p48-2.jpg"]},{"id":"p49","name":"볶음 아몬드","cat":"견과류","w":null,"o":null,"img":["p49-1.jpg","p49-2.jpg"]},{"id":"p50","name":"호두","cat":"견과류","w":null,"o":null,"img":["p50-1.jpg","p50-2.jpg"]}];
+const CATS = ['오징어','쥐포','어포','육포','견과류'];
+const CAT_EN = {'오징어':'Squid','쥐포':'Filefish','어포':'Fish Jerky','육포':'Beef Jerky','견과류':'Nuts'};
+const CAT_COVER = {'오징어':'p19','쥐포':'p23','어포':'p33','육포':'p44','견과류':'p49'};
+const FEATURED = ['p05','p10','p19','p23','p31','p33','p44','p38'];
+const $ = s => document.querySelector(s);
+const label = it => it.name + (it.w ? ' ' + it.w : '');
+const sub = it => [it.cat, it.o].filter(Boolean).join(' · ');
+const byId = Object.fromEntries(ITEMS.map(i => [i.id, i]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function card(it){
+  return `<button class="card" data-id="${it.id}"><div class="ph"><img src="img/prod/${it.img[0]}" alt="${esc(label(it))}" loading="lazy"></div><div class="nm">${esc(label(it))}</div><div class="sub">${esc(sub(it))}</div></button>`;
+}
+
+// home
+$('#mCount').textContent = ITEMS.length;
+$('#cats').innerHTML = CATS.map(c => {
+  const n = ITEMS.filter(i => i.cat === c).length, cov = byId[CAT_COVER[c]] || ITEMS.find(i => i.cat === c);
+  return `<button class="cat" data-cat="${c}"><div class="ph"><img src="img/prod/${cov.img[0]}" alt="" loading="lazy"></div><b>${c}</b><span class="en">${CAT_EN[c]} · ${n}</span></button>`;
+}).join('');
+$('#featured').innerHTML = FEATURED.map(id => byId[id]).filter(Boolean).map(card).join('');
+
+// products
+let curCat = '전체', q = '';
+$('#tabs').innerHTML = ['전체', ...CATS].map(c => {
+  const n = c === '전체' ? ITEMS.length : ITEMS.filter(i => i.cat === c).length;
+  return `<button class="tab${c==='전체'?' on':''}" data-tab="${c}">${c}<small>${n}</small></button>`;
+}).join('');
+let visible = [];
+function renderList(){
+  const norm = s => s.replace(/\s/g,'');
+  const list = ITEMS.filter(i => (curCat === '전체' || i.cat === curCat) && (!q || norm(label(i)+i.cat).includes(norm(q))));
+  visible = list;
+  const cats = curCat === '전체' ? CATS : [curCat];
+  $('#plist').innerHTML = cats.map(c => {
+    const l = list.filter(i => i.cat === c);
+    if (!l.length) return '';
+    return `<div class="catsec"><h3>${c}<small>${CAT_EN[c]} · ${l.length}</small></h3><div class="grid">${l.map(card).join('')}</div></div>`;
+  }).join('');
+  $('#empty').style.display = list.length ? 'none' : 'block';
+}
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  curCat = b.dataset.tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t === b));
+  renderList();
+});
+$('#q').addEventListener('input', e => { q = e.target.value.trim(); renderList(); });
+renderList();
+
+// category tiles -> products
+$('#cats').addEventListener('click', e => {
+  const b = e.target.closest('.cat'); if (!b) return;
+  curCat = b.dataset.cat; q = ''; $('#q').value = '';
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === curCat));
+  renderList(); location.hash = 'products';
+});
+
+// modal
+let curId = null;
+function openItem(id){
+  const it = byId[id]; if (!it) return; curId = id;
+  $('#mCat').textContent = it.cat + ' · ' + CAT_EN[it.cat];
+  $('#mName').textContent = label(it);
+  $('#mImg').src = 'img/prod/' + it.img[0]; $('#mImg').alt = label(it);
+  $('#mThumbs').innerHTML = it.img.map((f, i) => `<button class="${i?'':'on'}" data-f="${f}" aria-label="사진 ${i+1}"><img src="img/prod/${f}" alt=""></button>`).join('');
+  const rows = [['제품명', label(it)], ['분류', it.cat]];
+  if (it.w) rows.push(['중량', it.w]);
+  if (it.o) rows.push(['원산지', it.o + ' 원료']);
+  rows.push(['원재료명', '제품 뒷면 참조'], ['보관방법', '직사광선을 피해 서늘한 곳에 보관하시고, 개봉 후에는 냉장 보관해 주세요.'], ['제품 문의', '010-3551-8944']);
+  $('#mDl').innerHTML = rows.map(([a, b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join('');
+  $('#modal').classList.add('on'); document.body.style.overflow = 'hidden';
+}
+function closeItem(){ $('#modal').classList.remove('on'); document.body.style.overflow = ''; curId = null; }
+function step(d){
+  const pool = (location.hash === '#products' && visible.length) ? visible : ITEMS;
+  const i = pool.findIndex(x => x.id === curId);
+  if (i < 0) return; openItem(pool[(i + d + pool.length) % pool.length].id);
+}
+document.addEventListener('click', e => {
+  const c = e.target.closest('.card'); if (c) openItem(c.dataset.id);
+});
+$('#mThumbs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  $('#mImg').src = 'img/prod/' + b.dataset.f;
+  document.querySelectorAll('#mThumbs button').forEach(x => x.classList.toggle('on', x === b));
+});
+$('#mClose').onclick = closeItem;
+$('#mPrev').onclick = () => step(-1);
+$('#mNext').onclick = () => step(1);
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeItem(); });
+document.addEventListener('keydown', e => {
+  if (!curId) return;
+  if (e.key === 'Escape') closeItem();
+  if (e.key === 'ArrowRight') step(1);
+  if (e.key === 'ArrowLeft') step(-1);
+});
+
+// copy
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), 1600); }
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); toast('복사했습니다'); } catch { toast(b.dataset.copy); }
+}));
+
+// routing
+const VIEWS = ['home','products','about','contact'];
+function route(){
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+  VIEWS.forEach(x => $('#v-' + x).classList.toggle('on', x === v));
+  document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
+  $('#nav').classList.remove('open');
+  if (curId) closeItem();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route); route();
+$('#menuBtn').onclick = () => $('#nav').classList.toggle('open');
+window.addEventListener('scroll', () => $('#hd').classList.toggle('scrolled', scrollY > 8), {passive:true});
+</script>
+</body>
+</html>
