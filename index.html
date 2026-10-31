@@ -27,6 +27,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .en{font-family:"Jost",sans-serif;letter-spacing:.02em}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 
+.hero-img{position:relative}
+.hero-img img,.about-hero img,.band .ph img{transition:opacity 1.2s ease}
+.fade-stack{position:relative}
+.fade-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
+.fade-stack img.on{opacity:1}
 /* header */
 header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
 header.scrolled{border-color:var(--line)}
@@ -258,7 +263,7 @@ footer .copy{margin-top:20px;font-family:"Jost"}
             <a class="btn" href="#contact">입점·거래 문의</a>
           </div>
         </div>
-        <div class="hero-img"><img src="img/f/g03.jpg" alt="진주식품 생산 라인"></div>
+        <div class="hero-img fade-stack" data-rotate="hero"></div>
       </div>
       <div class="hero-meta">
         <div><b>1986</b><span>창업</span></div>
@@ -297,7 +302,7 @@ footer .copy{margin-top:20px;font-family:"Jost"}
         <p>손질부터 굽기, 조미, 포장까지 한 공간에서 이어집니다.<br class="bd">오래 사랑받은 맛은 지키고,<br class="bd">달라지는 입맛에 맞춰 새 제품을 계속 만들어 갑니다.</p>
         <a class="btn" href="#about">회사소개</a>
       </div>
-      <div class="ph"><img src="img/f/g08.jpg" alt="진주식품 생산 라인"></div>
+      <div class="ph fade-stack" data-rotate="band"></div>
     </div>
   </section>
 </div>
@@ -322,7 +327,7 @@ footer .copy{margin-top:20px;font-family:"Jost"}
 <!-- ABOUT -->
 <div class="view" id="v-about">
   <div class="about-hero">
-    <img src="img/f/g02.jpg" alt="진주식품 생산 공정">
+    <div class="fade-stack" data-rotate="about" style="position:absolute;inset:0"></div>
     <div class="wrap">
       <h1>Make people happy<br>with our food</h1>
       <span class="en">우리가 만든 식품으로 사람들을 즐겁게</span>
@@ -542,6 +547,25 @@ function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add(
 document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(b.dataset.copy); toast('복사했습니다'); } catch { toast(b.dataset.copy); }
 }));
+
+
+// 공장 사진: 페이지마다 무작위로 시작해서 천천히 넘어감
+const FACTORY = ['g01','g02','g03','g04','g05','g07','g08','g09','g10'];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+(function(){
+  const order = shuffle(FACTORY);
+  const slots = {hero: order.slice(0,3), band: order.slice(3,6), about: order.slice(6,9)};
+  document.querySelectorAll('[data-rotate]').forEach((box, k) => {
+    const list = slots[box.dataset.rotate] || order;
+    box.innerHTML = list.map((g, i) => `<img src="img/f/${g}.jpg" alt="진주식품 공장" ${i ? 'loading="lazy"' : ''} class="${i ? '' : 'on'}">`).join('');
+    const imgs = box.querySelectorAll('img'); let i = 0;
+    if (imgs.length < 2) return;
+    setTimeout(() => setInterval(() => {
+      if (!box.offsetParent) return;
+      imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on');
+    }, 5500), k * 1200);
+  });
+})();
 
 // routing
 const VIEWS = ['home','products','about','contact'];
