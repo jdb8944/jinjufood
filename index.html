@@ -52,7 +52,14 @@ nav a.on::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;heig
 
 /* hero */
 .hero{padding:64px 0 0}
-.hero-grid{display:block;padding:40px 0 8px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center}
+.wall{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.wall .card{display:block}
+.wall .card .ph{border-radius:6px}
+.wall .card:nth-child(3n+2){transform:translateY(28px)}
+.wall .card .ph img{transition:opacity .6s ease, transform .4s ease}
+.wall .card .ph img.out{opacity:0}
+@media (max-width:900px){.wall .card:nth-child(n+4){display:none}.wall .card:nth-child(3n+2){transform:translateY(16px)}}
 .eyebrow{font-size:13px;color:var(--ink2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px}
 .eyebrow i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--or)}
 .eyebrow i+i{background:var(--bl);margin-left:-6px}
@@ -257,12 +264,13 @@ footer .copy{margin-top:20px;font-family:"Jost"}
         <div>
           <div class="eyebrow en"><i></i><i></i> Since 1986</div>
           <h1>우리가 만든 안주로<br>사람들을 즐겁게.</h1>
-          <p class="lead">진주식품은 1986년부터 안주를 직접 만들어 왔습니다.<br class="bd">오징어, 쥐포, 어포, 육포, 견과류까지,<br class="bd">같은 원료라도 용량과 모양을 달리해 자리에 맞게 내놓습니다.</p>
+          <p class="lead">진주식품은 1986년부터 안주를 직접 만들어 왔습니다. <br class="bd">오징어, 쥐포, 어포, 육포, 견과류까지, <br class="bd">같은 원료라도 용량과 모양을 달리해 자리에 맞게 내놓습니다.</p>
           <div class="cta">
             <a class="btn dark" href="#products">제품 보기 <span class="en">→</span></a>
             <a class="btn" href="#contact">입점·거래 문의</a>
           </div>
         </div>
+        <div class="wall" id="wall" aria-label="진주식품 제품"></div>
       </div>
       <div class="hero-meta">
         <div><b>1986</b><span>창업</span></div>
@@ -298,7 +306,7 @@ footer .copy{margin-top:20px;font-family:"Jost"}
       <div>
         <span class="en" style="font-size:13px;letter-spacing:.14em;color:#9aa3a5">OUR FACTORY</span>
         <h2 style="margin-top:10px">경남 진주의 공장에서<br>직접 굽고, 포장합니다.</h2>
-        <p>손질부터 굽기, 조미, 포장까지 한 공간에서 이어집니다.<br class="bd">오래 사랑받은 맛은 지키고,<br class="bd">달라지는 입맛에 맞춰 새 제품을 계속 만들어 갑니다.</p>
+        <p>손질부터 굽기, 조미, 포장까지 한 공간에서 이어집니다. <br class="bd">오래 사랑받은 맛은 지키고, <br class="bd">달라지는 입맛에 맞춰 새 제품을 계속 만들어 갑니다.</p>
         <a class="btn" href="#about">회사소개</a>
       </div>
       <div class="ph fade-stack" data-rotate="band"></div>
@@ -336,8 +344,8 @@ footer .copy{margin-top:20px;font-family:"Jost"}
     <div class="wrap mission">
       <h2 class="en">OUR MISSION</h2>
       <div class="body">
-        <p>세상에는 이미 많은 먹거리가 있습니다.<br class="bd">먹는 일은 생존이기도 하지만,<br class="bd">이제는 저마다의 생활 방식이 되었습니다.</p>
-        <p>진주식품은 다양한 안주로 즐거운 시간을 함께합니다.<br class="bd">고객님이 없다면, 저희가 제품을 만드는 의미도 없습니다.</p>
+        <p>세상에는 이미 많은 먹거리가 있습니다. <br class="bd">먹는 일은 생존이기도 하지만, <br class="bd">이제는 저마다의 생활 방식이 되었습니다.</p>
+        <p>진주식품은 다양한 안주로 즐거운 시간을 함께합니다. <br class="bd">고객님이 없다면, 저희가 제품을 만드는 의미도 없습니다.</p>
       </div>
     </div>
   </section>
@@ -564,6 +572,26 @@ const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { c
       imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on');
     }, 3500), k * 900);
   });
+})();
+
+
+// 홈 첫 화면: 제품 6개를 무작위로 깔고, 하나씩 다른 제품으로 바뀜
+(function(){
+  const wall = $('#wall'); if (!wall) return;
+  const pool = shuffle(ITEMS);
+  let next = 6;
+  const tile = it => `<button class="card" data-id="${it.id}"><div class="ph"><img src="img/prod/${it.img[0]}" alt="${esc(label(it))}"></div></button>`;
+  wall.innerHTML = pool.slice(0, 6).map(tile).join('');
+  let k = 0;
+  setInterval(() => {
+    if (!wall.offsetParent) return;
+    const cards = wall.querySelectorAll('.card');
+    const c = cards[[0,4,2,3,1,5][k++ % 6]];
+    const it = pool[next++ % pool.length];
+    const img = c.querySelector('img');
+    img.classList.add('out');
+    setTimeout(() => { img.src = 'img/prod/' + it.img[0]; img.alt = label(it); c.dataset.id = it.id; img.onload = () => img.classList.remove('out'); }, 600);
+  }, 1800);
 })();
 
 // routing
